@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Unique Journal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">📔</span>
+                <span class="logo-text">My Journal</span>
+            </div>
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-tab="journal">
+                    <span class="tab-icon">✍️</span>
+                    <span class="tab-text">Journal</span>
+                </button>
+                <button class="nav-tab" data-tab="mood">
+                    <span class="tab-icon">😊</span>
+                    <span class="tab-text">Mood</span>
+                </button>
+                <button class="nav-tab" data-tab="reflection">
+                    <span class="tab-icon">🌅</span>
+                    <span class="tab-text">Reflection</span>
+                </button>
+                <button class="nav-tab" data-tab="game">
+                    <span class="tab-icon">🎮</span>
+                    <span class="tab-text">Game</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Left Sidebar - Journal Entries List -->
+        <aside class="sidebar" id="journal-sidebar">
+            <div class="sidebar-header">
+                <h2>Entries</h2>
+                <button class="btn-new-entry" id="newEntryBtn">
+                    <span>+</span> New Entry
+                </button>
+            </div>
+            <div class="entries-list" id="entriesList">
+                <!-- Entries will be dynamically added here -->
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <!-- Journal Tab -->
+            <section class="tab-content active" id="journal-tab">
+                <div class="journal-editor">
+                    <div class="editor-header">
+                        <input type="text" class="entry-title" id="entryTitle" placeholder="Entry Title...">
+                        <div class="editor-actions">
+                            <button class="btn-icon" id="saveEntryBtn" title="Save">
+                                <span>💾</span>
+                            </button>
+                            <button class="btn-icon" id="deleteEntryBtn" title="Delete">
+                                <span>🗑️</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-meta">
+                        <span class="entry-date" id="entryDate"></span>
+                        <select class="entry-tag" id="entryTag">
+                            <option value="general">General</option>
+                            <option value="work">Work</option>
+                            <option value="personal">Personal</option>
+                            <option value="ideas">Ideas</option>
+                            <option value="gratitude">Gratitude</option>
+                        </select>
+                    </div>
+                    <textarea class="entry-content" id="entryContent" placeholder="Start writing your thoughts..."></textarea>
+                </div>
+            </section>
+
+            <!-- Mood Tracker Tab -->
+            <section class="tab-content" id="mood-tab">
+                <div class="mood-tracker">
+                    <h2 class="section-title">How are you feeling today?</h2>
+                    <div class="mood-grid">
+                        <button class="mood-btn" data-mood="excited">
+                            <span class="mood-emoji">🤩</span>
+                            <span class="mood-label">Excited</span>
+                        </button>
+                        <button class="mood-btn" data-mood="happy">
+                            <span class="mood-emoji">😊</span>
+                            <span class="mood-label">Happy</span>
+                        </button>
+                        <button class="mood-btn" data-mood="calm">
+                            <span class="mood-emoji">😌</span>
+                            <span class="mood-label">Calm</span>
+                        </button>
+                        <button class="mood-btn" data-mood="neutral">
+                            <span class="mood-emoji">😐</span>
+                            <span class="mood-label">Neutral</span>
+                        </button>
+                        <button class="mood-btn" data-mood="sad">
+                            <span class="mood-emoji">😢</span>
+                            <span class="mood-label">Sad</span>
+                        </button>
+                        <button class="mood-btn" data-mood="anxious">
+                            <span class="mood-emoji">😰</span>
+                            <span class="mood-label">Anxious</span>
+                        </button>
+                    </div>
+                    <div class="mood-history">
+                        <h3>Mood History</h3>
+                        <div class="mood-chart" id="moodChart">
+                            <!-- Mood chart will be generated here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Daily Reflection Tab -->
+            <section class="tab-content" id="reflection-tab">
+                <div class="reflection-container">
+                    <h2 class="section-title">Daily Reflection</h2>
+                    <div class="reflection-date-selector">
+                        <button class="date-nav-btn" id="prevDateBtn">←</button>
+                        <span class="current-date" id="currentReflectionDate"></span>
+                        <button class="date-nav-btn" id="nextDateBtn">→</button>
+                    </div>
+                    <div class="reflection-questions">
+                        <div class="question-card">
+                            <h3>What am I grateful for today?</h3>
+                            <textarea class="reflection-input" id="gratitudeInput" placeholder="Write what you're grateful for..."></textarea>
+                        </div>
+                        <div class="question-card">
+                            <h3>What did I learn today?</h3>
+                            <textarea class="reflection-input" id="learnedInput" placeholder="What new things did you discover?"></textarea>
+                        </div>
+                        <div class="question-card">
+                            <h3>What could I improve tomorrow?</h3>
+                            <textarea class="reflection-input" id="improveInput" placeholder="What would you like to do better?"></textarea>
+                        </div>
+                        <div class="question-card">
+                            <h3>Today's highlight</h3>
+                            <textarea class="reflection-input" id="highlightInput" placeholder="What was the best part of your day?"></textarea>
+                        </div>
+                    </div>
+                    <button class="btn-save-reflection" id="saveReflectionBtn">Save Reflection</button>
+                </div>
+            </section>
+
+            <!-- Game Tab -->
+            <section class="tab-content" id="game-tab">
+                <div class="game-container">
+                    <h2 class="section-title">Word Puzzle Game</h2>
+                    <div class="game-info">
+                        <div class="game-stats">
+                            <div class="stat">
+                                <span class="stat-label">Score</span>
+                                <span class="stat-value" id="gameScore">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Time</span>
+                                <span class="stat-value" id="gameTime">60</span>
+                            </div>
+                        </div>
+                        <button class="btn-game-start" id="startGameBtn">Start Game</button>
+                    </div>
+                    <div class="game-board" id="gameBoard">
+                        <div class="game-instructions">
+                            <p>Click "Start Game" to begin!</p>
+                            <p>Find words by connecting letters horizontally, vertically, or diagonally.</p>
+                        </div>
+                    </div>
+                    <div class="game-words" id="foundWords">
+                        <h3>Found Words:</h3>
+                        <div class="words-list" id="wordsList"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Welcome Modal -->
+    <div class="modal" id="welcomeModal">
+        <div class="modal-content">
+            <h2>Welcome to Your Journal! 📔</h2>
+            <p>This is your personal space with 4 unique features:</p>
+            <ul class="feature-list">
+                <li><strong>✍️ Journal:</strong> Write and save your thoughts</li>
+                <li><strong>😊 Mood Tracker:</strong> Track your daily emotions</li>
+                <li><strong>🌅 Reflection:</strong> Daily questions for self-reflection</li>
+                <li><strong>🎮 Game:</strong> Fun word puzzle to relax</li>
+            </ul>
+            <button class="btn-modal-close" id="closeWelcomeBtn">Get Started</button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+

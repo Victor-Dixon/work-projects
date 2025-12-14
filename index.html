@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARIA Games - Choose Your Adventure</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 ARIA Games</h1>
+            <p class="subtitle">Choose your game mode</p>
+        </header>
+        
+        <div class="game-selector">
+            <div class="game-card" id="tetris-battle">
+                <div class="game-icon">🧩</div>
+                <h2>Tetris Battle</h2>
+                <p>ARIA vs AI in a competitive Tetris match. Clear lines to send garbage to your opponent!</p>
+                <button class="play-btn">Play Now</button>
+            </div>
+            
+            <div class="game-card" id="tetris-training">
+                <div class="game-icon">🎓</div>
+                <h2>Training Mode</h2>
+                <p>Progressive difficulty mode where the AI learns and adapts to your skill level!</p>
+                <button class="play-btn">Train AI</button>
+            </div>
+            
+            <div class="game-card" id="turn-based-battle">
+                <div class="game-icon">⚔️</div>
+                <h2>Turn-Based Battle</h2>
+                <p>Fight against a trained AI agent in strategic turn-based combat!</p>
+                <button class="play-btn">Play Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Containers -->
+    <div id="tetris-game" class="game-container hidden">
+        <div class="game-header">
+            <h2>Tetris Battle: ARIA vs AI</h2>
+            <div style="display: flex; gap: 1rem;">
+                <button class="settings-btn">⚙️ Settings</button>
+                <button class="back-btn">← Back to Menu</button>
+            </div>
+        </div>
+        <div id="tetris-game-area"></div>
+    </div>
+
+    <div id="tetris-training-game" class="game-container hidden">
+        <div class="game-header">
+            <h2>Training Mode: ARIA vs Learning AI</h2>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <div id="training-info" style="background: rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 10px;">
+                    <span>Level: <span id="training-level">1</span> | AI Skill: <span id="ai-skill">Beginner</span></span>
+                </div>
+                <button class="settings-btn">⚙️ Settings</button>
+                <button class="back-btn">← Back to Menu</button>
+            </div>
+        </div>
+        <div id="tetris-training-area"></div>
+    </div>
+    
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Game Settings</h2>
+                <button class="modal-close" id="close-settings">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-item">
+                    <label for="das-delay">DAS Delay (ms): <span id="das-value">133</span></label>
+                    <input type="range" id="das-delay" min="0" max="300" value="133" step="1">
+                    <p class="setting-desc">Time before piece starts moving when holding arrow key</p>
+                </div>
+                <div class="setting-item">
+                    <label for="arr-speed">ARR Speed (ms): <span id="arr-value">0</span></label>
+                    <input type="range" id="arr-speed" min="0" max="100" value="0" step="1">
+                    <p class="setting-desc">Time between each movement when holding arrow key (0 = instant)</p>
+                </div>
+                <div class="setting-item">
+                    <button class="reset-btn" id="reset-settings">Reset to Default</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="battle-game" class="game-container hidden">
+        <div class="game-header">
+            <h2>Turn-Based Battle: ARIA vs AI</h2>
+            <button class="back-btn">← Back to Menu</button>
+        </div>
+        <div id="battle-game-area"></div>
+    </div>
+
+    <script src="tetris-battle.js"></script>
+    <script src="tetris-training.js"></script>
+    <script src="turn-based-battle.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
+

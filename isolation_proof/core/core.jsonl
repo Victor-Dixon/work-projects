@@ -1,0 +1,3 @@
+{"S1":"CORE-0001","S2":"acme.widgets","S3":"has_vulnerability","S4":"CVE-2025-1234","S5":"vendor_advisory","S6":"2025-12-01T12:00:00Z","S7":"Initial disclosure."}
+{"S1":"CORE-0002","S2":"acme.widgets","S3":"patched_in","S4":"v2.1.3","S5":"release_notes","S6":"2025-12-10T09:30:00Z","S7":"Patch claimed available."}
+{"S1":"CORE-0003","S2":"acme.widgets","S3":"affected_versions","S4":"<2.1.3","S5":"vendor_advisory","S6":"2025-12-01T12:00:00Z","S7":"Vendor scope statement."}

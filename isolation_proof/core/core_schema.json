@@ -1,0 +1,46 @@
+{
+  "name": "S1-S7 Canonical Core Schema",
+  "version": "1.0.0",
+  "frozen": true,
+  "fields": {
+    "S1": {
+      "name": "core_id",
+      "type": "string",
+      "description": "Stable identifier for the canonical core record."
+    },
+    "S2": {
+      "name": "subject",
+      "type": "string",
+      "description": "The subject entity the record is about."
+    },
+    "S3": {
+      "name": "predicate",
+      "type": "string",
+      "description": "Relationship/claim verb (normalized)."
+    },
+    "S4": {
+      "name": "object",
+      "type": "string",
+      "description": "Object/value of the claim."
+    },
+    "S5": {
+      "name": "source",
+      "type": "string",
+      "description": "Canonical source label for the core record."
+    },
+    "S6": {
+      "name": "observed_at",
+      "type": "string",
+      "description": "ISO-8601 timestamp when observed (core truth)."
+    },
+    "S7": {
+      "name": "notes",
+      "type": "string",
+      "description": "Canonical notes (core-controlled)."
+    }
+  },
+  "constraints": {
+    "required": ["S1", "S2", "S3", "S4", "S5", "S6", "S7"],
+    "additionalProperties": false
+  }
+}

@@ -85,6 +85,17 @@
                 <line x1="72" y1="168" x2="80" y2="160" />
               </g>
 
+              <!-- eyes (cartoon vibe) -->
+              <g class="czEyes" aria-hidden="true">
+                <ellipse class="czEyeWhite" cx="96" cy="108" rx="16" ry="14" />
+                <ellipse class="czEyeWhite" cx="144" cy="108" rx="16" ry="14" />
+                <circle class="czPupil" cx="101" cy="111" r="5.5" />
+                <circle class="czPupil" cx="149" cy="111" r="5.5" />
+                <path class="czBrow" d="M82 95 Q96 88 110 95" />
+                <path class="czBrow" d="M130 95 Q144 88 158 95" />
+                <path class="czMouth" d="M96 142 Q120 156 144 142" />
+              </g>
+
               <!-- hands -->
               <g id="clockHands" class="czHands" style="transform-origin: 120px 120px">
                 <path id="clockHandMain" class="czHandMain" d="M118 120 L122 120 L130 70 Q120 60 110 70 Z" />
@@ -93,6 +104,12 @@
               <circle class="czPin" cx="120" cy="120" r="9" />
               <circle class="czPin2" cx="120" cy="120" r="4" />
             </svg>
+
+            <div class="clockSmokeTrail" aria-hidden="true">
+              <span class="trailPuff t1"></span>
+              <span class="trailPuff t2"></span>
+              <span class="trailPuff t3"></span>
+            </div>
 
             <div class="clockCenter">
               <div class="clockTime" id="elapsed">00:00:00</div>

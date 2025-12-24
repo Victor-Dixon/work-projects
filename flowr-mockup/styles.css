@@ -20,6 +20,7 @@
   --sans:
     ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     "Apple Color Emoji", "Segoe UI Emoji";
+  --flowr-progress: 0;
 }
 
 * {
@@ -195,6 +196,15 @@ body {
   filter: drop-shadow(0 18px 48px rgba(0, 0, 0, 0.6));
 }
 
+body.isRunning .cartoonClockSvg {
+  animation: toonWobble 1.6s ease-in-out infinite;
+}
+
+@keyframes toonWobble {
+  0%, 100% { transform: rotate(-0.7deg) scale(1); }
+  50% { transform: rotate(0.7deg) scale(1.01); }
+}
+
 .czBezel {
   fill: rgba(255, 255, 255, 0.12);
   stroke: rgba(5, 5, 9, 0.78);
@@ -215,6 +225,34 @@ body {
 
 .czTicks line {
   stroke: rgba(5, 5, 9, 0.72);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.czEyes {
+  opacity: 0.95;
+}
+
+.czEyeWhite {
+  fill: rgba(255, 255, 255, 0.92);
+  stroke: rgba(5, 5, 9, 0.78);
+  stroke-width: 5;
+}
+
+.czPupil {
+  fill: rgba(5, 5, 9, 0.78);
+}
+
+.czBrow {
+  fill: none;
+  stroke: rgba(5, 5, 9, 0.78);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.czMouth {
+  fill: none;
+  stroke: rgba(5, 5, 9, 0.78);
   stroke-width: 6;
   stroke-linecap: round;
 }
@@ -280,6 +318,47 @@ body.isRunning .czHands {
   font-family: var(--mono);
   color: rgba(255, 255, 255, 0.72);
   font-size: 12px;
+}
+
+.clockSmokeTrail {
+  position: absolute;
+  right: 10%;
+  top: 48%;
+  width: 180px;
+  height: 120px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+body.isRunning .clockSmokeTrail {
+  opacity: 1;
+}
+
+.trailPuff {
+  position: absolute;
+  right: 0;
+  top: 36px;
+  width: 140px;
+  height: 90px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.02) 70%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: calc(0.15 + (var(--flowr-progress) * 0.75));
+  transform: translateX(0) translateY(0) scale(calc(0.75 + (var(--flowr-progress) * 0.55)));
+  animation: trailDrift 2.8s ease-in-out infinite;
+  filter: blur(0.15px);
+}
+
+.trailPuff.t1 { animation-delay: 0s; }
+.trailPuff.t2 { top: 18px; width: 160px; height: 100px; animation-delay: 0.9s; }
+.trailPuff.t3 { top: 52px; width: 120px; height: 78px; animation-delay: 1.7s; }
+
+@keyframes trailDrift {
+  0% { opacity: 0; transform: translateX(0) translateY(20px) scale(0.72); }
+  18% { opacity: calc(0.2 + (var(--flowr-progress) * 0.75)); }
+  60% { opacity: calc(0.12 + (var(--flowr-progress) * 0.5)); transform: translateX(70px) translateY(-30px) scale(1.15); }
+  100% { opacity: 0; transform: translateX(120px) translateY(-75px) scale(1.35); }
 }
 
 .primaryActions {

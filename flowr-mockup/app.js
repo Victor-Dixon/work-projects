@@ -287,6 +287,7 @@ function getTargetFinishTs(active) {
 
 function setClockProgress(progress01) {
   const p = clamp(Number(progress01 ?? 0), 0, 1);
+  document.documentElement.style.setProperty("--flowr-progress", String(p));
 
   // New cartoon clock: rotate the hand around once per session.
   const hands = document.getElementById("clockHands");

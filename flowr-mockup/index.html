@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flowr — session timer mockup</title>
+    <meta
+      name="description"
+      content="Flowr mockup: track when you smoked and auto-finish your session."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true"></div>
+
+    <main class="app">
+      <header class="topbar">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">fl</div>
+          <div class="brandText">
+            <div class="title">Flowr</div>
+            <div class="subtitle">smoke → chill → done (auto)</div>
+          </div>
+        </div>
+
+        <div class="statusWrap" aria-live="polite">
+          <span class="statusDot" id="statusDot" aria-hidden="true"></span>
+          <span class="statusText" id="statusText">Idle</span>
+        </div>
+      </header>
+
+      <section class="hero" aria-label="Timer">
+        <div class="timerCard">
+          <div class="timerLabel">Elapsed</div>
+          <div class="timerValue" id="elapsed">00:00:00</div>
+          <div class="timerMeta" id="timerMeta">Tap “Smoked” to start.</div>
+
+          <div class="primaryActions">
+            <button class="btn btnPrimary" id="btnStart" type="button">
+              Smoked
+            </button>
+            <button class="btn btnGhost" id="btnReset" type="button">
+              Reset
+            </button>
+          </div>
+
+          <details class="secondaryPanel">
+            <summary>Manual override (optional)</summary>
+            <div class="secondaryRow">
+              <button class="btn btnWarn" id="btnFinish" type="button">
+                Finish now
+              </button>
+              <div class="hint">
+                You don’t have to stop it — auto-finish handles it. This is just
+                for edge cases.
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="sideCard">
+          <div class="cardTitle">Session</div>
+
+          <div class="kv">
+            <div class="k">Smoked at</div>
+            <div class="v" id="smokedAt">—</div>
+          </div>
+          <div class="kv">
+            <div class="k">Auto-finish at</div>
+            <div class="v" id="autoFinishAt">—</div>
+          </div>
+          <div class="kv">
+            <div class="k">Finished at</div>
+            <div class="v" id="finishedAt">—</div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="cardTitle">Auto-finish rule</div>
+          <div class="seg" role="group" aria-label="Auto-finish mode">
+            <button class="segBtn" id="modeNextHour" type="button">
+              Next hour
+            </button>
+            <button class="segBtn" id="modeDuration" type="button">
+              Duration
+            </button>
+          </div>
+          <div class="row">
+            <label class="field">
+              <span class="fieldLabel">Duration (minutes)</span>
+              <input
+                id="durationMinutes"
+                type="number"
+                inputmode="numeric"
+                min="5"
+                max="240"
+                step="5"
+                value="60"
+              />
+            </label>
+          </div>
+          <div class="micro" id="ruleExplainer">
+            “Next hour” ends at the top of the next hour (your “flowr this
+            hour” vibe).
+          </div>
+        </div>
+      </section>
+
+      <section class="lower" aria-label="Messages and command bar">
+        <div class="panel">
+          <div class="cardTitle">Messages</div>
+          <div class="grid2">
+            <label class="field">
+              <span class="fieldLabel">Intro message</span>
+              <input
+                id="introMessage"
+                type="text"
+                value="sup gang"
+                maxlength="120"
+              />
+            </label>
+            <label class="field">
+              <span class="fieldLabel">Outro message</span>
+              <input
+                id="outroMessage"
+                type="text"
+                value="flowr this hour"
+                maxlength="120"
+              />
+            </label>
+          </div>
+          <div class="micro">
+            These show as small “toasts” when you start and when it auto-finishes.
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="cardTitle">Command bar (keyword idea)</div>
+          <form id="commandForm" class="commandBar" autocomplete="off">
+            <input
+              id="commandInput"
+              type="text"
+              placeholder="Type: smoke / done / reset (then press Enter)"
+              aria-label="Command input"
+            />
+            <button class="btn btnGhost" type="submit">Run</button>
+          </form>
+          <div class="micro">
+            Commands: <code>smoke</code>, <code>done</code>, <code>reset</code>,
+            <code>help</code>.
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="micro">
+          Mockup only — no tracking/server. State persists locally in your browser.
+        </div>
+      </footer>
+    </main>
+
+    <div class="toastHost" id="toastHost" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>

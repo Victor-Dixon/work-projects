@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flowr — session timer mockup</title>
+    <meta
+      name="description"
+      content="Flowr mockup: track when you smoked and auto-finish your session."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true"></div>
+    <div class="screenSmoke screenSmokeLeft" aria-hidden="true">
+      <span class="puff s1"></span>
+      <span class="puff s2"></span>
+      <span class="puff s3"></span>
+      <span class="puff s4"></span>
+    </div>
+    <div class="screenSmoke screenSmokeRight" aria-hidden="true">
+      <span class="puff s1"></span>
+      <span class="puff s2"></span>
+      <span class="puff s3"></span>
+      <span class="puff s4"></span>
+    </div>
+
+    <main class="app">
+      <header class="topbar">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">fl</div>
+          <div class="brandText">
+            <div class="title">Flowr</div>
+            <div class="subtitle">smoke → chill → done (auto)</div>
+          </div>
+        </div>
+
+        <div class="topRight">
+          <div class="topActions">
+            <button class="btn btnGhost btnSmall" id="btnFocus" type="button">
+              Focus
+            </button>
+            <button class="btn btnGhost btnSmall" id="btnWake" type="button">
+              Keep awake
+            </button>
+          </div>
+          <div class="statusWrap" aria-live="polite">
+            <span class="statusDot" id="statusDot" aria-hidden="true"></span>
+            <span class="statusText" id="statusText">Idle</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="hero" aria-label="Timer">
+        <div class="timerCard">
+          <div class="timerLabel">Smoke clock</div>
+
+          <div class="cartoonClock" aria-label="Cartoon smoke clock">
+            <svg class="cartoonClockSvg" viewBox="0 0 240 240" aria-hidden="true">
+              <defs>
+                <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="rgba(0,0,0,0.55)" />
+                </filter>
+              </defs>
+
+              <!-- outer bezel -->
+              <path
+                class="czBezel"
+                d="M120 22c55 0 98 43 98 98s-43 98-98 98S22 175 22 120 65 22 120 22Z"
+              />
+              <!-- face -->
+              <circle class="czFace" cx="120" cy="120" r="82" />
+              <!-- little shine -->
+              <path class="czShine" d="M70 66c18-20 48-28 72-16c-18-2-44 8-58 24c-7 8-12 18-14 28c-5-12-5-25 0-36Z" />
+
+              <!-- ticks -->
+              <g class="czTicks" aria-hidden="true">
+                <line x1="120" y1="46" x2="120" y2="58" />
+                <line x1="120" y1="182" x2="120" y2="194" />
+                <line x1="46" y1="120" x2="58" y2="120" />
+                <line x1="182" y1="120" x2="194" y2="120" />
+                <line x1="72" y1="72" x2="80" y2="80" />
+                <line x1="168" y1="168" x2="160" y2="160" />
+                <line x1="168" y1="72" x2="160" y2="80" />
+                <line x1="72" y1="168" x2="80" y2="160" />
+              </g>
+
+              <!-- eyes (cartoon vibe) -->
+              <g class="czEyes" aria-hidden="true">
+                <ellipse class="czEyeWhite" cx="96" cy="108" rx="16" ry="14" />
+                <ellipse class="czEyeWhite" cx="144" cy="108" rx="16" ry="14" />
+                <circle class="czPupil" cx="101" cy="111" r="5.5" />
+                <circle class="czPupil" cx="149" cy="111" r="5.5" />
+                <path class="czBrow" d="M82 95 Q96 88 110 95" />
+                <path class="czBrow" d="M130 95 Q144 88 158 95" />
+                <path class="czMouth" d="M96 142 Q120 156 144 142" />
+              </g>
+
+              <!-- hands -->
+              <g id="clockHands" class="czHands" style="transform-origin: 120px 120px">
+                <path id="clockHandMain" class="czHandMain" d="M118 120 L122 120 L130 70 Q120 60 110 70 Z" />
+                <path id="clockHandTail" class="czHandTail" d="M118 122 L122 122 L126 150 Q120 154 114 150 Z" />
+              </g>
+              <circle class="czPin" cx="120" cy="120" r="9" />
+              <circle class="czPin2" cx="120" cy="120" r="4" />
+            </svg>
+
+            <div class="clockSmokeTrail" aria-hidden="true">
+              <span class="trailPuff t1"></span>
+              <span class="trailPuff t2"></span>
+              <span class="trailPuff t3"></span>
+            </div>
+
+            <div class="clockCenter">
+              <div class="clockTime" id="elapsed">00:00:00</div>
+              <div class="clockSub" id="timerMeta">Tap “Smoked” to start.</div>
+              <div class="clockMini" id="clockMini">—</div>
+            </div>
+          </div>
+
+          <div class="primaryActions">
+            <button class="btn btnPrimary" id="btnStart" type="button">
+              Smoked
+            </button>
+            <button class="btn btnGhost" id="btnReset" type="button">
+              Reset
+            </button>
+            <button class="btn btnGhost" id="btnFullscreen" type="button">
+              Fullscreen
+            </button>
+          </div>
+
+          <details class="secondaryPanel">
+            <summary>Manual override (optional)</summary>
+            <div class="secondaryRow">
+              <button class="btn btnWarn" id="btnFinish" type="button">
+                Finish now
+              </button>
+              <div class="hint">
+                You don’t have to stop it — auto-finish handles it. This is just
+                for edge cases.
+              </div>
+            </div>
+          </details>
+
+          <div class="petals" aria-hidden="true">
+            <span class="petal p1"></span>
+            <span class="petal p2"></span>
+            <span class="petal p3"></span>
+            <span class="petal p4"></span>
+            <span class="petal p5"></span>
+            <span class="petal p6"></span>
+          </div>
+        </div>
+
+        <div class="sideCard">
+          <div class="cardTitle">Session</div>
+
+          <div class="kv">
+            <div class="k">Smoked at</div>
+            <div class="v" id="smokedAt">—</div>
+          </div>
+          <div class="kv">
+            <div class="k">Auto-finish at</div>
+            <div class="v" id="autoFinishAt">—</div>
+          </div>
+          <div class="kv">
+            <div class="k">Finished at</div>
+            <div class="v" id="finishedAt">—</div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="cardTitle">Auto-finish rule</div>
+          <div class="seg" role="group" aria-label="Auto-finish mode">
+            <button class="segBtn" id="modeNextHour" type="button">
+              Next hour
+            </button>
+            <button class="segBtn" id="modeDuration" type="button">
+              Duration
+            </button>
+          </div>
+          <div class="row">
+            <label class="field">
+              <span class="fieldLabel">Duration (minutes)</span>
+              <input
+                id="durationMinutes"
+                type="number"
+                inputmode="numeric"
+                min="5"
+                max="240"
+                step="5"
+                value="60"
+              />
+            </label>
+          </div>
+          <div class="micro" id="ruleExplainer">
+            “Next hour” ends at the top of the next hour (your “flowr this
+            hour” vibe).
+          </div>
+        </div>
+      </section>
+
+      <section class="extras" aria-label="Notes, settings, and history">
+        <div class="panel">
+          <div class="cardTitle">Session notes</div>
+          <div class="grid2">
+            <label class="field">
+              <span class="fieldLabel">Strain</span>
+              <input id="noteStrain" type="text" maxlength="80" placeholder="e.g. Gelato" />
+            </label>
+            <label class="field">
+              <span class="fieldLabel">Vibe</span>
+              <input id="noteVibe" type="text" maxlength="80" placeholder="e.g. chill / creative" />
+            </label>
+            <label class="field">
+              <span class="fieldLabel">Where</span>
+              <input id="noteWhere" type="text" maxlength="80" placeholder="e.g. couch" />
+            </label>
+            <label class="field">
+              <span class="fieldLabel">Rating (1–5)</span>
+              <select id="noteRating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4" selected>4</option>
+                <option value="5">5</option>
+              </select>
+            </label>
+          </div>
+          <div class="row">
+            <label class="field">
+              <span class="fieldLabel">Tags (comma-separated)</span>
+              <input id="noteTags" type="text" maxlength="160" placeholder="e.g. social, music, hungry" />
+            </label>
+          </div>
+          <div class="row">
+            <label class="field">
+              <span class="fieldLabel">Notes</span>
+              <textarea id="noteText" rows="3" maxlength="400" placeholder="Anything you wanna remember..."></textarea>
+            </label>
+          </div>
+          <div class="micro">
+            These attach to the current session and get saved into History when it finishes.
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="cardTitle">Settings</div>
+          <div class="toggles">
+            <label class="toggle">
+              <input id="setSound" type="checkbox" />
+              <span class="toggleUi"></span>
+              <span class="toggleText">Sound on finish</span>
+            </label>
+            <label class="toggle">
+              <input id="setConfetti" type="checkbox" />
+              <span class="toggleUi"></span>
+              <span class="toggleText">Confetti on finish</span>
+            </label>
+            <label class="toggle">
+              <input id="setReminders" type="checkbox" />
+              <span class="toggleUi"></span>
+              <span class="toggleText">Halfway check-in</span>
+            </label>
+          </div>
+          <div class="row">
+            <label class="field">
+              <span class="fieldLabel">Check-in message</span>
+              <input id="setReminderMsg" type="text" maxlength="120" value="hydrate + vibe check" />
+            </label>
+          </div>
+          <div class="divider"></div>
+          <div class="toggles">
+            <label class="toggle">
+              <input id="setConfirmEnd" type="checkbox" />
+              <span class="toggleUi"></span>
+              <span class="toggleText">Confirm at auto-finish (optional)</span>
+            </label>
+            <label class="toggle">
+              <input id="setIdleFinish" type="checkbox" />
+              <span class="toggleUi"></span>
+              <span class="toggleText">Auto-finish if idle</span>
+            </label>
+          </div>
+          <div class="row">
+            <label class="field">
+              <span class="fieldLabel">Idle minutes</span>
+              <input
+                id="setIdleMinutes"
+                type="number"
+                inputmode="numeric"
+                min="2"
+                max="60"
+                step="1"
+                value="10"
+              />
+            </label>
+          </div>
+          <div class="micro">
+            Confirm-at-end will still auto-finish by itself after a short countdown — you can just extend if you want.
+          </div>
+        </div>
+
+        <div class="panel panelWide">
+          <div class="historyTop">
+            <div>
+              <div class="cardTitle">History</div>
+              <div class="micro" id="totalsToday">Today: —</div>
+            </div>
+            <div class="historyActions">
+              <button class="btn btnGhost btnSmall" id="btnExport" type="button">
+                Export JSON
+              </button>
+              <button class="btn btnWarn btnSmall" id="btnClear" type="button">
+                Clear history
+              </button>
+            </div>
+          </div>
+          <div class="historyList" id="historyList" aria-label="Session history list">
+            <!-- populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <section class="lower" aria-label="Messages and command bar">
+        <div class="panel">
+          <div class="cardTitle">Messages</div>
+          <div class="grid2">
+            <label class="field">
+              <span class="fieldLabel">Intro message</span>
+              <input
+                id="introMessage"
+                type="text"
+                value="sup gang"
+                maxlength="120"
+              />
+            </label>
+            <label class="field">
+              <span class="fieldLabel">Outro message</span>
+              <input
+                id="outroMessage"
+                type="text"
+                value="flowr this hour"
+                maxlength="120"
+              />
+            </label>
+          </div>
+          <div class="micro">
+            These show as small “toasts” when you start and when it auto-finishes.
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="cardTitle">Command bar (keyword idea)</div>
+          <form id="commandForm" class="commandBar" autocomplete="off">
+            <input
+              id="commandInput"
+              type="text"
+              placeholder="Type: smoke / done / reset / focus / awake / export"
+              aria-label="Command input"
+            />
+            <button class="btn btnGhost" type="submit">Run</button>
+          </form>
+          <div class="micro">
+            Commands: <code>smoke</code>, <code>done</code>, <code>reset</code>,
+            <code>focus</code>, <code>awake</code>, <code>export</code>,
+            <code>clear</code>, <code>help</code>.
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="micro">
+          Mockup only — no tracking/server. State persists locally in your browser.
+        </div>
+      </footer>
+    </main>
+
+    <canvas id="confettiCanvas" class="confetti" aria-hidden="true"></canvas>
+
+    <div class="modalHost" id="modalHost" hidden>
+      <div class="modalBackdrop" data-modal-close="true"></div>
+      <div class="modal" role="dialog" aria-modal="true" aria-label="Auto-finish reached">
+        <div class="modalTitle">Auto-finish reached</div>
+        <div class="modalBody" id="modalBody">
+          Flowr is about to finish this session.
+        </div>
+        <div class="modalCountdown" id="modalCountdown">Auto-finishing in —</div>
+        <div class="modalActions">
+          <button class="btn btnPrimary" id="btnModalFinish" type="button">
+            Finish
+          </button>
+          <button class="btn btnGhost" id="btnModalPlus15" type="button">
+            +15 min
+          </button>
+          <button class="btn btnGhost" id="btnModalPlus30" type="button">
+            +30 min
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toastHost" id="toastHost" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>

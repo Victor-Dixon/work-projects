@@ -215,22 +215,11 @@ function updateEntriesList() {
             entryItem.classList.add('active');
         }
         
-        // Use safe DOM creation instead of innerHTML to prevent XSS
-        const titleDiv = document.createElement('div');
-        titleDiv.className = 'entry-item-title';
-        titleDiv.textContent = entry.title || 'Untitled Entry';
-        
-        const dateDiv = document.createElement('div');
-        dateDiv.className = 'entry-item-date';
-        dateDiv.textContent = formatDate(entry.date);
-        
-        const previewDiv = document.createElement('div');
-        previewDiv.className = 'entry-item-preview';
-        previewDiv.textContent = entry.preview || 'No content yet...';
-        
-        entryItem.appendChild(titleDiv);
-        entryItem.appendChild(dateDiv);
-        entryItem.appendChild(previewDiv);
+        entryItem.innerHTML = `
+            <div class="entry-item-title">${entry.title || 'Untitled Entry'}</div>
+            <div class="entry-item-date">${formatDate(entry.date)}</div>
+            <div class="entry-item-preview">${entry.preview || 'No content yet...'}</div>
+        `;
         
         entryItem.addEventListener('click', () => loadEntry(entry.id));
         entriesList.appendChild(entryItem);

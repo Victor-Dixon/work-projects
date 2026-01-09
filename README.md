@@ -1,79 +1,167 @@
-# Terminal Organizer
+# WorkProjects
 
-A lightweight terminal-first kanban board that keeps tabs on all of your projects without leaving the command line. Inspired by Kantu-style boards, each column represents a workflow stage and every project card shows repo paths, priority, tags, and notes.
+**Innovation portfolio showcasing experimental projects, rapid prototypes, and proof-of-concept implementations across various domains.**
 
-## Features
-- Kanban-style layout rendered directly in the terminal with ANSI colors
-- Flexible columns via `TERMINAL_ORGANIZER_STATUSES`
-- JSON-backed storage with automatic directories
-- Fast CLI for adding, moving, updating, deleting, and inspecting projects
-- Zero third-party dependencies (pure Python standard library)
+---
 
-## Getting Started
-1. Ensure Python 3.10+ is available (`python3 --version`).
-2. Clone or copy this repository.
-3. (Optional) Create a virtual environment and activate it.
-4. Install dependencies (none required, but keep the file up to date):
+## 📋 Overview
+
+This repository contains multiple experimental projects and tools, each representing different domains and technologies. All projects are being brought to production-ready status through a systematic approach defined in our [Master Task List](MASTER_TASK_LIST.md).
+
+---
+
+## 🚀 Projects
+
+### 🎮 [Battle Tetris](battle-tetris/)
+Classic competitive Tetris gameplay with simultaneous multiplayer mode. Features real-time gameplay, AI opponents, and adaptive difficulty.
+
+**Tech Stack:** Vanilla JavaScript, HTML5, CSS3, Canvas API  
+**Status:** 🟡 In Development
+
+### 🖥️ [Terminal Organizer](terminal_organizer/)
+A lightweight terminal-first kanban board that keeps tabs on all of your projects without leaving the command line.
+
+**Tech Stack:** Python 3.10+, Standard Library  
+**Status:** 🟡 In Development
+
+### 🔒 [Isolation API](isolation_api/)
+FastAPI service providing operational isolation with immutable core and namespace-bound writes.
+
+**Tech Stack:** Python, FastAPI, Uvicorn  
+**Status:** 🟢 Core Complete
+
+### 🔐 [Isolation Proof](isolation_proof/)
+Cryptographic proof system for verifying isolation guarantees in multi-agent systems.
+
+**Tech Stack:** Python  
+**Status:** 🟡 Functional, needs documentation
+
+### 📔 [Journal App](journal-app/)
+A beautiful, feature-rich journal application with mood tracking, daily reflections, and word puzzles.
+
+**Tech Stack:** Vanilla JavaScript, HTML5, CSS3, LocalStorage  
+**Status:** 🟡 Functional, needs polish
+
+---
+
+## 📚 Documentation
+
+### Getting Started
+- [Development Environment Setup](docs/DEVELOPMENT_ENVIRONMENT.md) - Complete setup guide
+- [Project Inventory](docs/PROJECT_INVENTORY.md) - Detailed project assessments
+- [Master Task List](MASTER_TASK_LIST.md) - Definition of Done checklist
+
+### Planning & Organization
+- [Security Documentation](docs/security/) - Security audits and fixes
+- [Planning Documents](docs/planning/) - Execution plans and priorities
+
+### Templates
+- [README Template](templates/README_TEMPLATE.md)
+- [Contributing Template](templates/CONTRIBUTING_TEMPLATE.md)
+- [Changelog Template](templates/CHANGELOG_TEMPLATE.md)
+
+---
+
+## 🛠️ Quick Start
+
+### For Developers
+
+1. **Clone the repository:**
    ```bash
-   pip install -r requirements.txt
+   git clone https://github.com/Victor-Dixon/WorkProjects.git
+   cd WorkProjects
    ```
 
-## Usage
-Run the CLI via the module entry point:
-```bash
-python3 -m terminal_organizer [GLOBAL OPTIONS] <command> [ARGS]
-```
+2. **Set up development environment:**
+   - See [Development Environment Guide](docs/DEVELOPMENT_ENVIRONMENT.md) for detailed instructions
+   - Or use our setup scripts:
+     ```bash
+     # For Python projects
+     ./scripts/setup_python_project.sh isolation_api
+     
+     # For JavaScript projects
+     ./scripts/setup_js_project.sh battle-tetris
+     ```
 
-Common workflows:
-- List the board (default command):
-  ```bash
-  python3 -m terminal_organizer list
-  ```
-- Add a project:
-  ```bash
-  python3 -m terminal_organizer add \
-    --name "Docs Refresh" \
-    --path "$HOME/dev/docs" \
-    --status "Backlog" \
-    --priority 2 \
-    --tag "writing,content" \
-    --notes "New IA draft"
-  ```
-- Move a project to another column:
-  ```bash
-  python3 -m terminal_organizer move <id-or-name> --status "In Progress"
-  ```
-- Update metadata:
-  ```bash
-  python3 -m terminal_organizer update <id> --priority 1 --notes "Ship by Friday"
-  ```
-- Inspect details:
-  ```bash
-  python3 -m terminal_organizer info <id-or-name>
-  ```
-- Delete a card:
-  ```bash
-  python3 -m terminal_organizer delete <id-or-name>
-  ```
+3. **Choose a project:**
+   - Navigate to any project directory
+   - Follow project-specific README for instructions
 
-## Configuration
-Environment variables provide quick customization:
-- `TERMINAL_ORGANIZER_DATA`: override the JSON file (default `~/.terminal_organizer/projects.json`).
-- `TERMINAL_ORGANIZER_STATUSES`: comma-separated list defining board columns (e.g., `Ideas,Backlog,Doing,Done`).
+---
 
-You can also pass `--data /path/to/file.json` for command-specific overrides. The tool automatically creates the storage directory.
+## 📊 Project Status Dashboard
 
-## Development
-- Run `python3 -m compileall -q terminal_organizer` to ensure syntax correctness.
-- Add automated tests or additional tooling as you evolve the project.
-- Contributions: open pull requests describing the workflow changes or new commands.
+| Project | Status | Code Quality | Documentation | Testing | Security | Deployment |
+|---------|--------|--------------|---------------|---------|----------|------------|
+| Battle Tetris | 🟡 | 🔄 | 🔄 | ❌ | 🔄 | ❌ |
+| Terminal Organizer | 🟡 | 🔄 | 🔄 | ❌ | 🔄 | ❌ |
+| Isolation API | 🟢 | 🔄 | 🔄 | 🔄 | ✅ | 🔄 |
+| Isolation Proof | 🟡 | 🔄 | ❌ | 🔄 | 🔄 | ❌ |
+| Journal App | 🟡 | 🔄 | 🔄 | ❌ | 🔄 | ❌ |
 
-## Partner-facing API (operational isolation)
+**Legend:**
+- ✅ Complete
+- 🔄 In Progress
+- ❌ Not Started
 
-This repo also includes a minimal FastAPI service that preserves isolation:
+See [Master Task List](MASTER_TASK_LIST.md) for detailed progress tracking.
 
-- **Immutable core (read-only)** + hash verification
-- **Partner namespace-bound writes** (token → namespace)
-- **TLS-ready** (example reverse proxy config)
+---
 
-See `isolation_api/README.md`.
+## 🎯 Current Focus
+
+**Phase 0A: Organization & Planning** - Foundation phase (In Progress)
+
+We're currently in Phase 0A, establishing the foundation:
+- ✅ Repository structure organized
+- ✅ Documentation framework created
+- ✅ Development environment guides created
+- ✅ Templates and scripts created
+- 🔄 Code audits and baselines (in progress)
+
+**Next:** Phase 1 - Critical Security Fixes
+
+---
+
+## 📝 Contributing
+
+See [Contributing Guidelines](templates/CONTRIBUTING_TEMPLATE.md) for:
+- Code style guidelines
+- Commit message conventions
+- Pull request process
+- Testing requirements
+
+---
+
+## 🔒 Security
+
+Security is a priority. See:
+- [Security Documentation](docs/security/) - All security audits and fixes
+- [Security Audit Summary](docs/security/COMPLETE_AUDIT_SUMMARY.md)
+- [Critical Security Issues](docs/security/CRITICAL_SECURITY_ISSUE.md)
+
+---
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details
+
+---
+
+## 🤝 Contact & Support
+
+- **Issues:** Use GitHub Issues for bug reports and feature requests
+- **Discussions:** Use GitHub Discussions for questions and ideas
+
+---
+
+## 📈 Progress Tracking
+
+- **Total Projects:** 5
+- **Phase:** 0A - Organization & Planning
+- **Master Task List:** [MASTER_TASK_LIST.md](MASTER_TASK_LIST.md)
+- **Last Updated:** December 28, 2024
+
+---
+
+**Status:** 🟡 Active Development | 🎯 Working towards Definition of Done
